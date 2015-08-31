@@ -1,0 +1,14 @@
+D:\GittHub\Osu--Replay-bot\bin\Release\ReplayReader.exe.config
+D:\GittHub\Osu--Replay-bot\bin\Release\ReplayReader.exe
+D:\GittHub\Osu--Replay-bot\bin\Release\ReplayReader.pdb
+D:\GittHub\Osu--Replay-bot\obj\Release\ReplayReader.Properties.Resources.resources
+D:\GittHub\Osu--Replay-bot\obj\Release\ReplayReader.csproj.GenerateResource.Cache
+D:\GittHub\Osu--Replay-bot\obj\Release\ReplayReader.exe
+D:\GittHub\Osu--Replay-bot\obj\Release\ReplayReader.pdb
+D:\GittHub\Osu--Replay-bot\obj\Release\ReplayReader.Menu.resources
+D:\GittHub\Osu--Replay-bot\bin\Release\WindowsInput.dll
+D:\GittHub\Osu--Replay-bot\bin\Release\WindowsInput.xml
+D:\GittHub\Osu--Replay-bot\obj\Release\ReplayReader.csprojResolveAssemblyReference.cache
+D:\Osu-Bot-master\bin\Release\ReplayReader.exe.config
+D:\Osu-Bot-master\obj\Release\ReplayReader.exe
+D:\Osu-Bot-master\obj\Release\ReplayReader.pdb

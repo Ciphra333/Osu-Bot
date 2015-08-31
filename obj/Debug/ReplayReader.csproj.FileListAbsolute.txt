@@ -1,0 +1,9 @@
+D:\GittHub\Osu--Replay-bot\bin\Debug\ReplayReader.exe.config
+D:\GittHub\Osu--Replay-bot\bin\Debug\ReplayReader.exe
+D:\GittHub\Osu--Replay-bot\bin\Debug\ReplayReader.pdb
+D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.csprojResolveAssemblyReference.cache
+D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.Properties.Resources.resources
+D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.csproj.GenerateResource.Cache
+D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.exe
+D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.pdb
+D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.Menu.resources
