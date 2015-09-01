@@ -7,3 +7,14 @@ D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.csproj.GenerateResource.Cache
 D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.exe
 D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.pdb
 D:\GittHub\Osu--Replay-bot\obj\Debug\ReplayReader.Menu.resources
+D:\GitHub\Osu-Bot\bin\Debug\ReplayReader.exe.config
+D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.exe
+D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.pdb
+D:\GitHub\Osu-Bot\bin\Debug\ReplayReader.exe
+D:\GitHub\Osu-Bot\bin\Debug\ReplayReader.pdb
+D:\GitHub\Osu-Bot\bin\Debug\WindowsInput.dll
+D:\GitHub\Osu-Bot\bin\Debug\WindowsInput.xml
+D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.csprojResolveAssemblyReference.cache
+D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.Menu.resources
+D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.Properties.Resources.resources
+D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.csproj.GenerateResource.Cache

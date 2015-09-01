@@ -38,6 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,7 +51,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <LangVersion>6</LangVersion>
+    <LangVersion>default</LangVersion>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>

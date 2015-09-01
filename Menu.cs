@@ -126,12 +126,12 @@ namespace ReplayReader
         private void TimerSearch()
         {
             //byte[] signature = {0xB8, 0x17, 0, 0, 0x1C, 0x13, 0, 0, 0xB8, 0x17, 0, 0, 0x1C, 0x13, 0, 0}; //old signature
-            byte[] signature = { 0xB4, 0x17, 0, 0, 0x24, 0x13, 0, 0, 0xB4, 0x17, 0, 0, 0x24, 0x13, 0, 0 };
+            byte[] signature = { 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0, 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0 };
             GetProcess();
             while (true)
             {
                 var signatureAddress = (IntPtr) FindSignature(_pId, signature);
-                TimerAddress = (IntPtr) ((int) signatureAddress + 0x1200); // +0x1200 old
+                TimerAddress = (IntPtr) ((int) signatureAddress + 0xCE0); // +0x1200 old
                 _addressSizeX = (IntPtr) ((int) TimerAddress + 0x168); // +0x168 old
                 _addressSizeY = (IntPtr) ((int) _addressSizeX + 0x4);
 
