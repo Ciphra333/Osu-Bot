@@ -12,3 +12,16 @@ D:\GittHub\Osu--Replay-bot\obj\Release\ReplayReader.csprojResolveAssemblyReferen
 D:\Osu-Bot-master\bin\Release\ReplayReader.exe.config
 D:\Osu-Bot-master\obj\Release\ReplayReader.exe
 D:\Osu-Bot-master\obj\Release\ReplayReader.pdb
+D:\GitHub\Osu-Bot\bin\Release\ReplayReader.exe.config
+D:\GitHub\Osu-Bot\obj\Release\ReplayReader.exe
+D:\GitHub\Osu-Bot\obj\Release\ReplayReader.pdb
+D:\GitHub\Osu-Bot\bin\Release\ReplayReader.exe
+D:\GitHub\Osu-Bot\bin\Release\ReplayReader.pdb
+D:\GitHub\Osu-Bot\bin\Release\ReplayReader.exe.CodeAnalysisLog.xml
+D:\GitHub\Osu-Bot\bin\Release\ReplayReader.exe.lastcodeanalysissucceeded
+D:\GitHub\Osu-Bot\bin\Release\WindowsInput.dll
+D:\GitHub\Osu-Bot\bin\Release\WindowsInput.xml
+D:\GitHub\Osu-Bot\obj\Release\ReplayReader.csprojResolveAssemblyReference.cache
+D:\GitHub\Osu-Bot\obj\Release\ReplayReader.Menu.resources
+D:\GitHub\Osu-Bot\obj\Release\ReplayReader.Properties.Resources.resources
+D:\GitHub\Osu-Bot\obj\Release\ReplayReader.csproj.GenerateResource.Cache
