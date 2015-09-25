@@ -17,7 +17,6 @@ namespace ReplayReader
         private static readonly List<int> Time = new List<int>();
         private static readonly List<float> X = new List<float>();
         private static readonly List<float> Y = new List<float>();
-        private static int _zero;
         public static string OsuLeftKey;
         public static string OsuRightKey;
         public static VirtualKeyCode OsuLeft;
@@ -46,8 +45,8 @@ namespace ReplayReader
                 if (Menu.IsRun && _mode == GameModes.Osu)
                     OsuTap();
                 else
-                    if (_replayIndex != _zero)
-                        _replayIndex = _zero;
+                    if (_replayIndex != 0)
+                        _replayIndex = 0;
                 Thread.Sleep(1);
             }
         }
@@ -131,13 +130,16 @@ namespace ReplayReader
             while (index < _rep.ReplayFrames.Count - 2)
             {
                 var thisFrame = _rep.ReplayFrames[index];
+
+                if (thisFrame.Time < 0) { continue; } // i don't like negative time :)
+
                 var futureFrame = _rep.ReplayFrames[index + 1];
                 X.Add(thisFrame.X);
                 Y.Add(thisFrame.Y);
                 Time.Add(thisFrame.Time);
                 Btn.Add(thisFrame.Keys);
 
-                //Smooth moving
+                //Smooth linear moving
                 if (thisFrame.Time > 0 && futureFrame.TimeDiff > 19)
                 {
                     var steps = futureFrame.TimeDiff / 10;
@@ -162,12 +164,7 @@ namespace ReplayReader
 
                 index++;
             }
-            var it = 0;
-            while (Time[it] <= 0)
-                it++;
-            if (Time[it + 1] < 0)
-                while (Time[it + 1] <= 0)
-                    it++;
+            
             for (var i = 0; i < 4; i++)
             {
                 Time.Add(999999999);
@@ -175,7 +172,6 @@ namespace ReplayReader
                 Y.Add(0);
                 Btn.Add(KeyData.None);
             }
-            _zero = it;
             Menu.ReplayParsed = true;
         }
     }
