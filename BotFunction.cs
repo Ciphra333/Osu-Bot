@@ -11,12 +11,9 @@ namespace ReplayReader
 {
     public static class BotFunction
     {
-        private static Replay _rep;
+        private static Replay _originalReplay;
+        private static List<ReplayFrame> _rep;
         private static int _replayIndex;
-        private static readonly List<KeyData> Btn = new List<KeyData>();
-        private static readonly List<int> Time = new List<int>();
-        private static readonly List<float> X = new List<float>();
-        private static readonly List<float> Y = new List<float>();
         public static string OsuLeftKey;
         public static string OsuRightKey;
         public static VirtualKeyCode OsuLeft;
@@ -29,21 +26,19 @@ namespace ReplayReader
         private static readonly float AbsX = 65535.0f / SystemInformation.PrimaryMonitorSize.Width;
         private static readonly float AbsY = 65535.0f / SystemInformation.PrimaryMonitorSize.Height;
 
-        // ReSharper disable once NotAccessedField.Local
         private static IKeyboardSimulator _keyboardSimulator;
 
-        // ReSharper disable once NotAccessedField.Local
         private static IMouseSimulator _mouseSimulator;
 
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(Keys vKey);
 
-        public static void BotThread()
+        public static void BotThread() // it very stupid idea... But it works o_O
         {
             while (true)
             {
                 if (Menu.IsRun && _mode == GameModes.Osu)
-                    OsuTap();
+                    OsuTap(_rep[_replayIndex]);
                 else
                     if (_replayIndex != 0)
                         _replayIndex = 0;
@@ -51,21 +46,18 @@ namespace ReplayReader
             }
         }
 
-        private static void OsuTap()
+        private static void OsuTap(ReplayFrame frame)
         {
-            var _key = Btn[_replayIndex];
-            var _tempX = GetScaledX(X[_replayIndex]);
-            var _tempY = GetScaledY(Y[_replayIndex]);
-            var _rTime = Time[_replayIndex];
             var timer = Menu.ReadMemory(Menu.TimerAddress, 4);
             var _trackPosition = BitConverter.ToInt32(timer, 0);
-            while (_trackPosition < _rTime && Menu.IsRun)
+            var frameTime = frame.Time;
+            while (_trackPosition < frameTime && Menu.IsRun)
             {
                 Thread.Sleep(1);
                 timer = Menu.ReadMemory(Menu.TimerAddress, 4);
                 _trackPosition = BitConverter.ToInt32(timer, 0);
             }
-            Input.Mouse.MoveMouseTo(_tempX, _tempY);
+            Input.Mouse.MoveMouseTo(GetScaledX(frame.X), GetScaledY(frame.Y));
 
             if (GetAsyncKeyState(Keys.LControlKey) != 0)
             {
@@ -81,17 +73,17 @@ namespace ReplayReader
             }
             if (UseMouse)
             {
-                _mouseSimulator = (_key.HasFlag(KeyData.M1) && !_key.HasFlag(KeyData.K1))
+                _mouseSimulator = (frame.Keys.HasFlag(KeyData.M1) && !frame.Keys.HasFlag(KeyData.K1))
                                       ? Input.Mouse.LeftButtonDown()
                                       : Input.Mouse.LeftButtonUp();
-                _mouseSimulator = (_key.HasFlag(KeyData.M2) && !_key.HasFlag(KeyData.K2))
+                _mouseSimulator = (frame.Keys.HasFlag(KeyData.M2) && !frame.Keys.HasFlag(KeyData.K2))
                                       ? Input.Mouse.RightButtonDown()
                                       : Input.Mouse.RightButtonUp();
             }
-            _keyboardSimulator = _key.HasFlag(KeyData.K1)
+            _keyboardSimulator = frame.Keys.HasFlag(KeyData.K1)
                                      ? Input.Keyboard.KeyDown(OsuLeft)
                                      : Input.Keyboard.KeyUp(OsuLeft);
-            _keyboardSimulator = _key.HasFlag(KeyData.K2)
+            _keyboardSimulator = frame.Keys.HasFlag(KeyData.K2)
                                      ? Input.Keyboard.KeyDown(OsuRight)
                                      : Input.Keyboard.KeyUp(OsuRight);
             _replayIndex++;
@@ -119,25 +111,26 @@ namespace ReplayReader
                 RestoreDirectory = true
             };
             if (dialog.ShowDialog() != DialogResult.OK) return;
-            X.Clear();
-            Y.Clear();
-            Time.Clear();
-            Btn.Clear();
             var path = dialog.FileName;
-            _rep = new Replay(path, true);
-            _mode = _rep.GameMode;
+            _rep.Clear();
+            _originalReplay = new Replay(path, true);
+            _mode = _originalReplay.GameMode;
             var index = 0;
-            while (index < _rep.ReplayFrames.Count - 2)
+            while (index < _originalReplay.ReplayFrames.Count - 2)
             {
-                var thisFrame = _rep.ReplayFrames[index];
+                var thisFrame = _originalReplay.ReplayFrames[index];
 
-                if (thisFrame.Time < 0) { continue; } // i don't like negative time :)
+                if (thisFrame.Time < 0) { index++; continue; } // i don't like negative time :)
 
-                var futureFrame = _rep.ReplayFrames[index + 1];
-                X.Add(thisFrame.X);
-                Y.Add(thisFrame.Y);
-                Time.Add(thisFrame.Time);
-                Btn.Add(thisFrame.Keys);
+                var futureFrame = _originalReplay.ReplayFrames[index + 1];
+                var frame = new ReplayFrame
+                {
+                    X = thisFrame.X,
+                    Y = thisFrame.Y,
+                    Time = thisFrame.Time,
+                    Keys = thisFrame.Keys
+                };
+                _rep.Add(frame);
 
                 //Smooth linear moving
                 if (thisFrame.Time > 0 && futureFrame.TimeDiff > 19)
@@ -155,22 +148,30 @@ namespace ReplayReader
                         startX = startX + xMult;
                         startY = startY + yMult;
                         startTime = startTime + 10;
-                        X.Add(startX);
-                        Y.Add(startY);
-                        Time.Add(startTime);
-                        Btn.Add(startBtn);
+                        var smoothFrame = new ReplayFrame
+                        {
+                            X = startX,
+                            Y = startY,
+                            Time = startTime,
+                            Keys = startBtn
+                        };
                     }
                 }
 
                 index++;
             }
-            
-            for (var i = 0; i < 4; i++)
+
+            var speedFrame = new ReplayFrame
             {
-                Time.Add(999999999);
-                X.Add(0);
-                Y.Add(0);
-                Btn.Add(KeyData.None);
+                X = 0,
+                Y = 0,
+                Keys = KeyData.None,
+                Time = 999999999
+            };
+
+            for (var i = 0; i < 4; i++) // I'm use it for speed up... Really, it don't good...
+            { 
+                _rep.Add(speedFrame);
             }
             Menu.ReplayParsed = true;
         }

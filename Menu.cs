@@ -126,7 +126,7 @@ namespace ReplayReader
         private void TimerSearch()
         {
             //byte[] signature = {0xB8, 0x17, 0, 0, 0x1C, 0x13, 0, 0, 0xB8, 0x17, 0, 0, 0x1C, 0x13, 0, 0}; //old signature
-            byte[] signature = { 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0, 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0 };
+            byte[] signature = { 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0, 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0};
             GetProcess();
             while (true)
             {
@@ -390,4 +390,5 @@ namespace ReplayReader
 
         #endregion Dll's
     }
+
 }
