@@ -1,21 +1,18 @@
-﻿using System;
+﻿using ReplayReader.Properties;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using WindowsInput;
 using WindowsInput.Native;
-using ReplayReader.Properties;
 
 namespace ReplayReader
 {
     public static class BotFunction
     {
-        private static KeyData _key;
         private static Replay _rep;
         private static int _replayIndex;
-        private static int _rTime;
-        private static int _trackPosition;
         private static readonly List<KeyData> Btn = new List<KeyData>();
         private static readonly List<int> Time = new List<int>();
         private static readonly List<float> X = new List<float>();
@@ -29,8 +26,6 @@ namespace ReplayReader
         public static bool UseMouse = false;
         private static readonly InputSimulator Input = new InputSimulator();
         private static GameModes _mode;
-        private static float _tempX;
-        private static float _tempY;
 
         private static readonly float AbsX = 65535.0f / SystemInformation.PrimaryMonitorSize.Width;
         private static readonly float AbsY = 65535.0f / SystemInformation.PrimaryMonitorSize.Height;
@@ -51,63 +46,20 @@ namespace ReplayReader
                 if (Menu.IsRun && _mode == GameModes.Osu)
                     OsuTap();
                 else
-                // ReSharper disable once RedundantCheckBeforeAssignment
                     if (_replayIndex != _zero)
                         _replayIndex = _zero;
                 Thread.Sleep(1);
             }
-            // ReSharper disable once FunctionNeverReturns
         }
 
-        //private static void TaikoTap()
-        //{
-        //    var x = (int)X[_replayIndex];
-        //    _rTime = Time[_replayIndex];
-
-        //    if (GetAsyncKeyState(Keys.LControlKey) != 0)
-        //        _panic = true;
-
-        //    if (TrackPosition < _rTime) return;
-        //    if (_panic) //Водит курсор, но не нажимает кнопки.
-        //    {
-        //        _replayIndex++;
-        //        _panic = false;
-        //        if (UseMouse)
-        //        {
-        //            Input.Mouse.LeftButtonUp();
-        //            Input.Mouse.RightButtonUp();
-        //        }
-        //        Input.Keyboard.KeyUp(OsuLeft);
-        //        Input.Keyboard.KeyUp(OsuRight);
-        //        return;
-        //    }
-        //    if (x == 640)
-        //    {
-        //        Input.Keyboard.KeyDown(VirtualKeyCode.VK_J);
-        //    }
-        //    else
-        //    {
-        //        Input.Keyboard.KeyUp(VirtualKeyCode.VK_J);
-        //    }
-        //    if (x == 320)
-        //    {
-        //        Input.Keyboard.KeyDown(VirtualKeyCode.VK_F);
-        //    }
-        //    else
-        //    {
-        //        Input.Keyboard.KeyUp(VirtualKeyCode.VK_F);
-        //    }
-        //    _replayIndex++;
-        //    _panic = false;
-        //}
         private static void OsuTap()
         {
-            _key = Btn[_replayIndex];
-            _tempX = GetScaledX(X[_replayIndex]) * AbsX;
-            _tempY = GetScaledY(Y[_replayIndex]) * AbsY;
-            _rTime = Time[_replayIndex];
+            var _key = Btn[_replayIndex];
+            var _tempX = GetScaledX(X[_replayIndex]);
+            var _tempY = GetScaledY(Y[_replayIndex]);
+            var _rTime = Time[_replayIndex];
             var timer = Menu.ReadMemory(Menu.TimerAddress, 4);
-            _trackPosition = BitConverter.ToInt32(timer, 0);
+            var _trackPosition = BitConverter.ToInt32(timer, 0);
             while (_trackPosition < _rTime && Menu.IsRun)
             {
                 Thread.Sleep(1);
@@ -148,14 +100,14 @@ namespace ReplayReader
 
         private static int GetScaledX(float x)
         {
-             return (int) (x * Menu.XMultiplier + Menu.XOffset + Menu.OsuCoordX);
+             return (int) ((x * Menu.XMultiplier + Menu.XOffset + Menu.OsuCoordX) * AbsX);
         }
 
         private static int GetScaledY(float y)
         {
             if (Inversion) //HR to Normal and Normal to HR
                 y = 384 - y;
-            return (int) (y * Menu.YMultiplier + Menu.YOffset + Menu.OsuCoordY);
+            return (int) ((y * Menu.YMultiplier + Menu.YOffset + Menu.OsuCoordY) * AbsY);
         }
 
         public static void Parse()
