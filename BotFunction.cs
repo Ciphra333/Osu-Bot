@@ -12,7 +12,7 @@ namespace ReplayReader
     public static class BotFunction
     {
         private static Replay _originalReplay;
-        private static List<ReplayFrame> _rep;
+        private static List<ReplayFrame> _rep = new List<ReplayFrame>();
         private static int _replayIndex;
         public static string OsuLeftKey;
         public static string OsuRightKey;
@@ -50,14 +50,17 @@ namespace ReplayReader
         {
             var timer = Menu.ReadMemory(Menu.TimerAddress, 4);
             var _trackPosition = BitConverter.ToInt32(timer, 0);
+            var frameX = frame.X;
+            var frameY = frame.Y;
             var frameTime = frame.Time;
+            var frameKey = frame.Keys;
             while (_trackPosition < frameTime && Menu.IsRun)
             {
                 Thread.Sleep(1);
                 timer = Menu.ReadMemory(Menu.TimerAddress, 4);
                 _trackPosition = BitConverter.ToInt32(timer, 0);
             }
-            Input.Mouse.MoveMouseTo(GetScaledX(frame.X), GetScaledY(frame.Y));
+            Input.Mouse.MoveMouseTo(GetScaledX(frameX), GetScaledY(frameY));
 
             if (GetAsyncKeyState(Keys.LControlKey) != 0)
             {
@@ -73,17 +76,17 @@ namespace ReplayReader
             }
             if (UseMouse)
             {
-                _mouseSimulator = (frame.Keys.HasFlag(KeyData.M1) && !frame.Keys.HasFlag(KeyData.K1))
+                _mouseSimulator = (frameKey.HasFlag(KeyData.M1) && !frame.Keys.HasFlag(KeyData.K1))
                                       ? Input.Mouse.LeftButtonDown()
                                       : Input.Mouse.LeftButtonUp();
-                _mouseSimulator = (frame.Keys.HasFlag(KeyData.M2) && !frame.Keys.HasFlag(KeyData.K2))
+                _mouseSimulator = (frameKey.HasFlag(KeyData.M2) && !frame.Keys.HasFlag(KeyData.K2))
                                       ? Input.Mouse.RightButtonDown()
                                       : Input.Mouse.RightButtonUp();
             }
-            _keyboardSimulator = frame.Keys.HasFlag(KeyData.K1)
+            _keyboardSimulator = frameKey.HasFlag(KeyData.K1)
                                      ? Input.Keyboard.KeyDown(OsuLeft)
                                      : Input.Keyboard.KeyUp(OsuLeft);
-            _keyboardSimulator = frame.Keys.HasFlag(KeyData.K2)
+            _keyboardSimulator = frameKey.HasFlag(KeyData.K2)
                                      ? Input.Keyboard.KeyDown(OsuRight)
                                      : Input.Keyboard.KeyUp(OsuRight);
             _replayIndex++;

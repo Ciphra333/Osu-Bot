@@ -389,6 +389,11 @@ namespace ReplayReader
         }
 
         #endregion Dll's
+
+        private void linkToVk_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://vk.com/id256356348");
+        }
     }
 
 }

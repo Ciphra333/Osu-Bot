@@ -40,6 +40,8 @@ namespace ReplayReader
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.btnClose = new System.Windows.Forms.Button();
             this.LTitle = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.linkToVk = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // btnRead
@@ -87,10 +89,36 @@ namespace ReplayReader
             this.LTitle.TabIndex = 23;
             this.LTitle.Text = "Osu!ReplayBot";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label1.Location = new System.Drawing.Point(12, 82);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "v0.063 Beta";
+            // 
+            // linkToVk
+            // 
+            this.linkToVk.ActiveLinkColor = System.Drawing.Color.DarkOrange;
+            this.linkToVk.AutoSize = true;
+            this.linkToVk.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.linkToVk.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.linkToVk.Location = new System.Drawing.Point(173, 80);
+            this.linkToVk.Name = "linkToVk";
+            this.linkToVk.Size = new System.Drawing.Size(55, 17);
+            this.linkToVk.TabIndex = 25;
+            this.linkToVk.TabStop = true;
+            this.linkToVk.Text = "Creator";
+            this.linkToVk.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkToVk_LinkClicked);
+            // 
             // Menu
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.ClientSize = new System.Drawing.Size(240, 75);
+            this.ClientSize = new System.Drawing.Size(240, 104);
+            this.Controls.Add(this.linkToVk);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.LTitle);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnRead);
@@ -110,6 +138,8 @@ namespace ReplayReader
         private Timer timer2;
         private Button btnClose;
         private Label LTitle;
+        private Label label1;
+        private LinkLabel linkToVk;
     }
 }
 
