@@ -18,3 +18,4 @@ D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.csprojResolveAssemblyReference.cache
 D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.Menu.resources
 D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.Properties.Resources.resources
 D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.csproj.GenerateResource.Cache
+D:\GitHub\Osu-Bot\obj\Debug\ReplayReader.EditorSettings.resources

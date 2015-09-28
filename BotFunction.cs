@@ -11,7 +11,6 @@ namespace ReplayReader
 {
     public static class BotFunction
     {
-        private static Replay _originalReplay;
         private static List<ReplayFrame> _rep = new List<ReplayFrame>();
         private static int _replayIndex;
         public static string OsuLeftKey;
@@ -50,9 +49,10 @@ namespace ReplayReader
         {
             var timer = Menu.ReadMemory(Menu.TimerAddress, 4);
             var _trackPosition = BitConverter.ToInt32(timer, 0);
-            var frameX = frame.X;
-            var frameY = frame.Y;
+            var frameX = GetScaledX(frame.X);
+            var frameY = GetScaledY(frame.Y);
             var frameTime = frame.Time;
+
             var frameKey = frame.Keys;
             while (_trackPosition < frameTime && Menu.IsRun)
             {
@@ -60,7 +60,7 @@ namespace ReplayReader
                 timer = Menu.ReadMemory(Menu.TimerAddress, 4);
                 _trackPosition = BitConverter.ToInt32(timer, 0);
             }
-            Input.Mouse.MoveMouseTo(GetScaledX(frameX), GetScaledY(frameY));
+            Input.Mouse.MoveMouseTo(frameX, frameY);
 
             if (GetAsyncKeyState(Keys.LControlKey) != 0)
             {
@@ -116,7 +116,7 @@ namespace ReplayReader
             if (dialog.ShowDialog() != DialogResult.OK) return;
             var path = dialog.FileName;
             _rep.Clear();
-            _originalReplay = new Replay(path, true);
+            var _originalReplay = new Replay(path, true);
             _mode = _originalReplay.GameMode;
             var index = 0;
             while (index < _originalReplay.ReplayFrames.Count - 2)
@@ -158,6 +158,7 @@ namespace ReplayReader
                             Time = startTime,
                             Keys = startBtn
                         };
+                        _rep.Add(smoothFrame);
                     }
                 }
 
@@ -171,11 +172,12 @@ namespace ReplayReader
                 Keys = KeyData.None,
                 Time = 999999999
             };
-
+            _originalReplay = null;
             for (var i = 0; i < 4; i++) // I'm use it for speed up... Really, it don't good...
             { 
                 _rep.Add(speedFrame);
             }
+
             Menu.ReplayParsed = true;
         }
     }

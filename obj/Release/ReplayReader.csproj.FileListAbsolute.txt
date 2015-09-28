@@ -25,3 +25,4 @@ D:\GitHub\Osu-Bot\obj\Release\ReplayReader.csprojResolveAssemblyReference.cache
 D:\GitHub\Osu-Bot\obj\Release\ReplayReader.Menu.resources
 D:\GitHub\Osu-Bot\obj\Release\ReplayReader.Properties.Resources.resources
 D:\GitHub\Osu-Bot\obj\Release\ReplayReader.csproj.GenerateResource.Cache
+D:\GitHub\Osu-Bot\obj\Release\ReplayReader.EditorSettings.resources

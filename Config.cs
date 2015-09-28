@@ -8,46 +8,43 @@ namespace ReplayReader
     public class Config
     {
         public string NewTitle = "";
-
-        public void OpenConfig()
+        string path = Environment.CurrentDirectory + "\\Data\\Settings.cfg";
+        public void CreateFile(string title, string left, string right, string mouse, string inversion)
         {
-            var path = Environment.CurrentDirectory + "\\Data\\Settings.cfg";
             var dataPath = path.Substring(0, path.IndexOf("\\Settings", StringComparison.Ordinal));
             if (!Directory.Exists(dataPath))
                 Directory.CreateDirectory(dataPath);
-            if (!File.Exists(path))
-                using (var fs = File.Create(path))
-                {
-                    var line1 =
-                        new UTF8Encoding(true).GetBytes("WindowTitle       *Osu!ReplayBot* //Title for window" +
-                                                        Environment.NewLine);
-                    var line2 =
-                        new UTF8Encoding(true).GetBytes("LeftKey           *Z* //Left key for clicking" +
-                                                        Environment.NewLine);
-                    var line3 =
-                        new UTF8Encoding(true).GetBytes("RightKey          *X* //Right key for clicking" +
-                                                        Environment.NewLine);
-                    var line4 =
-                        new UTF8Encoding(true).GetBytes(
-                                                        "MouseClicks       *0* //0 - no use mouse clicks, 1 - use mouse clicks" +
-                                                        Environment.NewLine);
-                    var line5 =
-                        new UTF8Encoding(true).GetBytes(
-                                                        "InversionMode     *0* //Convert HardRock to Normal and Normal to HardRock(1 - true, 0 - false)");
-                    fs.Write(line1, 0, line1.Length);
-                    fs.Write(line2, 0, line2.Length);
-                    fs.Write(line3, 0, line3.Length);
-                    fs.Write(line4, 0, line4.Length);
-                    fs.Write(line5, 0, line5.Length);
-                }
+
+            using (var fs = File.Create(path))
+            {
+                var line1 =
+                    new UTF8Encoding(true).GetBytes("*" + title + "*" + " ");
+                var line2 =
+                    new UTF8Encoding(true).GetBytes("*" + left + "*" + " ");
+                var line3 =
+                    new UTF8Encoding(true).GetBytes("*" + right + "*" + " ");
+                var line4 =
+                    new UTF8Encoding(true).GetBytes("*" + mouse + "*" + " ");
+                var line5 =
+                    new UTF8Encoding(true).GetBytes("*" + inversion + "*" + " ");
+                fs.Write(line1, 0, line1.Length);
+                fs.Write(line2, 0, line2.Length);
+                fs.Write(line3, 0, line3.Length);
+                fs.Write(line4, 0, line4.Length);
+                fs.Write(line5, 0, line5.Length);
+            }
+        }
+
+        public void readeFile()
+        {
             var lines = File.ReadAllLines(path);
             NewTitle = lines[0].Split('*')[1];
-            BotFunction.OsuLeftKey = lines[1].Split('*')[1].ToLower();
-            BotFunction.OsuRightKey = lines[2].Split('*')[1].ToLower();
+            BotFunction.OsuLeftKey = lines[0].Split('*')[3].ToLower();
+            BotFunction.OsuRightKey = lines[0].Split('*')[5].ToLower();
             BotFunction.OsuLeft = CharToVirtualKeyCode(BotFunction.OsuLeftKey);
             BotFunction.OsuRight = CharToVirtualKeyCode(BotFunction.OsuRightKey);
-            BotFunction.UseMouse = lines[3].Split('*')[1] == "1";
-            BotFunction.Inversion = lines[4].Split('*')[1] == "1";
+            BotFunction.UseMouse = lines[0].Split('*')[7] == "1";
+            BotFunction.Inversion = lines[0].Split('*')[9] == "1";
         }
 
         private static VirtualKeyCode CharToVirtualKeyCode(string key)

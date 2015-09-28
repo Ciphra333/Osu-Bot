@@ -12,10 +12,10 @@
          <Members>
           <Member Name="#GetAsyncKeyState(System.Windows.Forms.Keys)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Так как метод является методом P/Invoke, 'BotFunction.GetAsyncKeyState(Keys)' должен быть определен в классе с именем NativeMethods, SafeNativeMethods или UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Измените уровень доступа P/Invoke 'BotFunction.GetAsyncKeyState(Keys)', чтобы он не был виден извне своей сборки.</Issue>
             </Message>
            </Messages>
@@ -26,75 +26,75 @@
          <Members>
           <Member Name="#CloseHandle(System.IntPtr)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Так как метод является методом P/Invoke, 'Menu.CloseHandle(IntPtr)' должен быть определен в классе с именем NativeMethods, SafeNativeMethods или UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#FindWindow(System.String,System.String)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Так как метод является методом P/Invoke, 'Menu.FindWindow(string, string)' должен быть определен в классе с именем NativeMethods, SafeNativeMethods или UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#GetWindowInfo(System.IntPtr,ReplayReader.Menu+Windowinfo&amp;)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Так как метод является методом P/Invoke, 'Menu.GetWindowInfo(IntPtr, ref Menu.Windowinfo)' должен быть определен в классе с именем NativeMethods, SafeNativeMethods или UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#GetWindowText(System.IntPtr,System.Text.StringBuilder,System.Int32)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Так как метод является методом P/Invoke, 'Menu.GetWindowText(IntPtr, StringBuilder, int)' должен быть определен в классе с именем NativeMethods, SafeNativeMethods или UnsafeNativeMethods.</Issue>
             </Message>
-            <Message Id="1" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="NonBreaking">
+            <Message Id="1" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="NonBreaking">
              <Issue Name="Parameter" Certainty="75" Level="Error">Чтобы уменьшить угрозу безопасности, следует маршалировать параметр 'lpString' как Юникод, установив значение CharSet. Unicode для DllImport. CharSet, либо явно маршалировав параметр как UnmanagedType.LPWStr. Если необходимо маршалировать эту строку как ANSI или зависящую от системы, установите BestFitMapping=false; для обеспечения дополнительной безопасности также установите ThrowOnUnmappableChar=true.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#GetWindowTextLength(System.IntPtr)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Так как метод является методом P/Invoke, 'Menu.GetWindowTextLength(IntPtr)' должен быть определен в классе с именем NativeMethods, SafeNativeMethods или UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#OpenProcess(System.Int32,System.Boolean,System.Int32)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Так как метод является методом P/Invoke, 'Menu.OpenProcess(int, bool, int)' должен быть определен в классе с именем NativeMethods, SafeNativeMethods или UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ReadProcessMemory(System.IntPtr,System.IntPtr,System.Byte[],System.Int32,System.Int32&amp;)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Так как метод является методом P/Invoke, 'Menu.ReadProcessMemory(IntPtr, IntPtr, byte[], int, out int)' должен быть определен в классе с именем NativeMethods, SafeNativeMethods или UnsafeNativeMethods.</Issue>
             </Message>
-            <Message Id="3" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="NonBreaking">
+            <Message Id="3" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="NonBreaking">
              <Issue Name="Parameter" Certainty="95" Level="Error">Как объявлено в вашем коде, параметр 'dwSize' для P/Invoke 'Menu.ReadProcessMemory(IntPtr, IntPtr, byte[], int, out int)' будет иметь размер 4 байт для 64-разрядных платформ. Это неправильно, поскольку текущее объявление в машинном коде для данного API указывает, что его размер должен быть 8 байт для 64-разрядных платформ. Обратитесь к документации MSDN Platform SDK и выясните, какой тип данных следует использовать вместо 'int'.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#TimerAddress" Kind="Field" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="PointersShouldNotBeVisible" Category="Microsoft.Security" CheckId="CA2111" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="PointersShouldNotBeVisible" Category="Microsoft.Security" CheckId="CA2111" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="75" Level="CriticalError">Сделайте 'Menu.TimerAddress' частным.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#VirtualQueryEx(System.IntPtr,System.IntPtr,ReplayReader.Menu+MemoryBasicInformation&amp;,System.UInt32)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Так как метод является методом P/Invoke, 'Menu.VirtualQueryEx(IntPtr, IntPtr, out Menu.MemoryBasicInformation, uint)' должен быть определен в классе с именем NativeMethods, SafeNativeMethods или UnsafeNativeMethods.</Issue>
             </Message>
-            <Message Id="3" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="NonBreaking">
+            <Message Id="3" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="NonBreaking">
              <Issue Name="Parameter" Certainty="95" Level="Error">Как объявлено в вашем коде, параметр 'dwLength' для P/Invoke 'Menu.VirtualQueryEx(IntPtr, IntPtr, out Menu.MemoryBasicInformation, uint)' будет иметь размер 4 байт для 64-разрядных платформ. Это неправильно, поскольку текущее объявление в машинном коде для данного API указывает, что его размер должен быть 8 байт для 64-разрядных платформ. Обратитесь к документации MSDN Platform SDK и выясните, какой тип данных следует использовать вместо 'uint'.</Issue>
             </Message>
-            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="NonBreaking">
+            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="NonBreaking">
              <Issue Name="Return" Certainty="95" Level="Error">Как объявлено в вашем коде, тип возвращаемого значения для P/Invoke 'Menu.VirtualQueryEx(IntPtr, IntPtr, out Menu.MemoryBasicInformation, uint)' будет иметь размер 4 байт для 64-разрядных платформ. Это неправильно, поскольку текущее объявление в машинном коде для данного API указывает, что его размер должен быть 8 байт для 64-разрядных платформ. Обратитесь к документации MSDN Platform SDK и выясните, какой тип данных следует использовать вместо 'int'.</Issue>
             </Message>
            </Messages>
@@ -105,14 +105,14 @@
          <Members>
           <Member Name="#Dispose(System.Boolean)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="Breaking">
+            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="Breaking">
              <Issue Name="DisposeBoolSignature" Certainty="95" Level="Error" Path="D:\GitHub\Osu-Bot" File="Replay.cs" Line="184">Убедитесь, что 'Replay.Dispose(bool)' объявлен как защищенный, виртуальный и распечатанный.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Load()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Не ликвидировать объекты несколько раз" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="DependsOnFix">
+            <Message TypeName="Не ликвидировать объекты несколько раз" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="D:\GitHub\Osu-Bot" File="Replay.cs" Line="93">Объект "'codedStream'" можно удалять более одного раза в методе 'Replay.Load()'. Чтобы избежать исключения System.ObjectDisposedException, следует вызывать метод "Dispose" для объекта только один раз.: Lines: 93</Issue>
             </Message>
            </Messages>
@@ -125,14 +125,14 @@
        <Types>
         <Type Name="DataErrorException" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="NonBreaking">
+          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="NonBreaking">
            <Issue Certainty="95" Level="Error">Добавьте [Serializable] к 'DataErrorException', так как этот тип реализует ISerializable.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="InvalidParamException" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="NonBreaking">
+          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="NonBreaking">
            <Issue Certainty="95" Level="Error">Добавьте [Serializable] к 'InvalidParamException', так как этот тип реализует ISerializable.</Issue>
           </Message>
          </Messages>
@@ -145,7 +145,7 @@
          <Members>
           <Member Name="#.cctor()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="InitializeValueTypeStaticFieldsInline" Category="Microsoft.Usage" CheckId="CA2207" Status="Active" Created="2015-09-26 11:21:31Z" FixCategory="NonBreaking">
+            <Message TypeName="InitializeValueTypeStaticFieldsInline" Category="Microsoft.Usage" CheckId="CA2207" Status="Active" Created="2015-09-27 14:59:33Z" FixCategory="NonBreaking">
              <Issue Certainty="95" Level="CriticalError" Path="D:\GitHub\Osu-Bot\LZMA" File="RangeCoderBit.cs" Line="10">Инициализируйте все статические поля в 'BitEncoder' при объявлении и удалите явный статический конструктор.</Issue>
             </Message>
            </Messages>

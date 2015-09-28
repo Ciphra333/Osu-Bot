@@ -76,6 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="EditorSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditorSettings.Designer.cs">
+      <DependentUpon>EditorSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Enums.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Menu.cs">
@@ -107,6 +113,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Replay.cs" />
     <Compile Include="ReplayFrame.cs" />
+    <EmbeddedResource Include="EditorSettings.resx">
+      <DependentUpon>EditorSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>

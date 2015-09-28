@@ -16,7 +16,6 @@ namespace ReplayReader
         public static IntPtr TimerAddress = (IntPtr) 0x000000;
         private static IntPtr _gameHandle = (IntPtr) null;
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         public static bool IsRun;
 
         public static int OsuCoordX;
@@ -38,7 +37,7 @@ namespace ReplayReader
         {
             InitializeComponent();
             var cfg = new Config();
-            cfg.OpenConfig();
+            cfg.readeFile();
             Text = cfg.NewTitle;
             var m = new Thread(BotFunction.BotThread);
             m.Start();
@@ -213,6 +212,14 @@ namespace ReplayReader
             }
         }
 
+        public static bool settingOpen = false;
+
+        void newForm()
+        {
+            var Form2 = new EditorSettings();
+            Form2.ShowDialog();
+        }
+
         private void timer2_Tick(object sender, EventArgs e)
         {
             try
@@ -234,14 +241,21 @@ namespace ReplayReader
                     LTitle.ForeColor = Color.Red;
                     if (BotFunction.GetAsyncKeyState(Keys.LControlKey) == 0 || BotFunction.GetAsyncKeyState(Keys.O) == 0)
                         return;
-                    var cfg = new Config();
-                    cfg.OpenConfig();
                     var fpath = Environment.CurrentDirectory + "\\Data\\Settings.cfg";
-                    var proc = Process.Start("notepad.exe", fpath);
-                    if (proc == null) return;
-                    proc.WaitForExit();
-                    proc.Close();
-                    cfg.OpenConfig();
+                    //open new form
+                    if (!settingOpen)
+                    {
+                        var thread = new Thread(newForm);
+                        thread.Start();
+                        settingOpen = true;
+                        while (settingOpen)
+                        {
+                            Thread.Sleep(5);
+                        }
+                        thread.Abort();
+                    }
+                    var cfg = new Config();
+                    cfg.readeFile();
                     Text = cfg.NewTitle;
                 }
             }
