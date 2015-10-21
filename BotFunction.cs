@@ -11,7 +11,7 @@ namespace ReplayReader
 {
     public static class BotFunction
     {
-        private static List<ReplayFrame> _rep = new List<ReplayFrame>();
+        private static readonly List<ReplayFrame> Rep = new List<ReplayFrame>();
         private static int _replayIndex;
         public static string OsuLeftKey;
         public static string OsuRightKey;
@@ -32,14 +32,14 @@ namespace ReplayReader
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(Keys vKey);
 
-        public static void BotThread() // it very stupid idea... But it works o_O
+        public static void BotThread()
         {
             while (true)
             {
                 if (Menu.IsRun && _mode == GameModes.Osu)
-                    OsuTap(_rep[_replayIndex]);
+                    OsuTap(Rep[_replayIndex]);
                 else
-                    if (_replayIndex != 0)
+                    if (_replayIndex != 0x0)
                         _replayIndex = 0;
                 Thread.Sleep(1);
             }
@@ -48,17 +48,17 @@ namespace ReplayReader
         private static void OsuTap(ReplayFrame frame)
         {
             var timer = Menu.ReadMemory(Menu.TimerAddress, 4);
-            var _trackPosition = BitConverter.ToInt32(timer, 0);
+            var trackPosition = BitConverter.ToInt32(timer, 0);
             var frameX = GetScaledX(frame.X);
             var frameY = GetScaledY(frame.Y);
             var frameTime = frame.Time;
 
             var frameKey = frame.Keys;
-            while (_trackPosition < frameTime && Menu.IsRun)
+            while (trackPosition < frameTime && Menu.IsRun)
             {
                 Thread.Sleep(1);
                 timer = Menu.ReadMemory(Menu.TimerAddress, 4);
-                _trackPosition = BitConverter.ToInt32(timer, 0);
+                trackPosition = BitConverter.ToInt32(timer, 0);
             }
             Input.Mouse.MoveMouseTo(frameX, frameY);
 
@@ -115,17 +115,17 @@ namespace ReplayReader
             };
             if (dialog.ShowDialog() != DialogResult.OK) return;
             var path = dialog.FileName;
-            _rep.Clear();
-            var _originalReplay = new Replay(path, true);
-            _mode = _originalReplay.GameMode;
+            Rep.Clear();
+            var originalReplay = new Replay(path, true);
+            _mode = originalReplay.GameMode;
             var index = 0;
-            while (index < _originalReplay.ReplayFrames.Count - 2)
+            while (index < originalReplay.ReplayFrames.Count - 2)
             {
-                var thisFrame = _originalReplay.ReplayFrames[index];
+                var thisFrame = originalReplay.ReplayFrames[index];
 
                 if (thisFrame.Time < 0) { index++; continue; } // i don't like negative time :)
 
-                var futureFrame = _originalReplay.ReplayFrames[index + 1];
+                var futureFrame = originalReplay.ReplayFrames[index + 1];
                 var frame = new ReplayFrame
                 {
                     X = thisFrame.X,
@@ -133,7 +133,7 @@ namespace ReplayReader
                     Time = thisFrame.Time,
                     Keys = thisFrame.Keys
                 };
-                _rep.Add(frame);
+                Rep.Add(frame);
 
                 //Smooth linear moving
                 if (thisFrame.Time > 0 && futureFrame.TimeDiff > 19)
@@ -158,7 +158,7 @@ namespace ReplayReader
                             Time = startTime,
                             Keys = startBtn
                         };
-                        _rep.Add(smoothFrame);
+                        Rep.Add(smoothFrame);
                     }
                 }
 
@@ -172,10 +172,9 @@ namespace ReplayReader
                 Keys = KeyData.None,
                 Time = 999999999
             };
-            _originalReplay = null;
             for (var i = 0; i < 4; i++) // I'm use it for speed up... Really, it don't good...
             { 
-                _rep.Add(speedFrame);
+                Rep.Add(speedFrame);
             }
 
             Menu.ReplayParsed = true;

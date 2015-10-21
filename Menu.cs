@@ -20,8 +20,8 @@ namespace ReplayReader
 
         public static int OsuCoordX;
         public static int OsuCoordY;
-        private static int _osuSizeX = 800;
-        private static int _osuSizeY = 640;
+        public static int OsuSizeX = 800;
+        public static int OsuSizeY = 640;
         private static int _pId;
         private static Rect _r;
         public static bool ReplayParsed = false;
@@ -37,7 +37,7 @@ namespace ReplayReader
         {
             InitializeComponent();
             var cfg = new Config();
-            cfg.readeFile();
+            cfg.ReadeFile();
             Text = cfg.NewTitle;
             var m = new Thread(BotFunction.BotThread);
             m.Start();
@@ -125,14 +125,13 @@ namespace ReplayReader
         private void TimerSearch()
         {
             //byte[] signature = {0xB8, 0x17, 0, 0, 0x1C, 0x13, 0, 0, 0xB8, 0x17, 0, 0, 0x1C, 0x13, 0, 0}; //old signature
-            byte[] signature = { 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0, 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0};
+            //byte[] signature = { 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0, 0xC8, 0x17, 0, 0, 0x24, 0x13, 0, 0};
+            byte[] signature = {0x0C, 0, 0, 0, 0xED, 0x0A, 0, 0, 0x0C, 0, 0, 0, 0xED, 0x0A, 0, 0};
             GetProcess();
             while (true)
             {
                 var signatureAddress = (IntPtr) FindSignature(_pId, signature);
-                TimerAddress = (IntPtr) ((int) signatureAddress + 0xCE0); // +0x1200 old
-                _addressSizeX = (IntPtr) ((int) TimerAddress + 0x168); // +0x168 old
-                _addressSizeY = (IntPtr) ((int) _addressSizeX + 0x4);
+                TimerAddress = (IntPtr) ((int) signatureAddress + 0x3900); // +0x1200 old
 
                 if ((int) signatureAddress > 0)
                     break;
@@ -168,11 +167,6 @@ namespace ReplayReader
         {
             try
             {
-                var x = ReadMemory(_addressSizeX, 4);
-                var y = ReadMemory(_addressSizeY, 4);
-                _osuSizeX = BitConverter.ToInt32(x, 0);
-                _osuSizeY = BitConverter.ToInt32(y, 0);
-
                 var winInfo = new Windowinfo();
                 GetWindowInfo(_gameHandle, ref winInfo);
                 _r = winInfo.rcWindow;
@@ -181,8 +175,8 @@ namespace ReplayReader
                 if (string.Compare(Dec2HexL(winInfo.dwStyle)[2].ToString(), "C", StringComparison.Ordinal) == 0)
                     _r.Top += Dc;
 
-                if (_osuSizeX != SystemInformation.PrimaryMonitorSize.Width |
-                    _osuSizeY != SystemInformation.PrimaryMonitorSize.Height)
+                if (OsuSizeX != SystemInformation.PrimaryMonitorSize.Width |
+                    OsuSizeY != SystemInformation.PrimaryMonitorSize.Height)
                 {
                     OsuCoordX = _r.Left;
                     OsuCoordY = _r.Top + 6;
@@ -193,8 +187,8 @@ namespace ReplayReader
                     OsuCoordY = 12;
                 }
 
-                var swidth = _osuSizeX;
-                var sheight = _osuSizeY;
+                var swidth = OsuSizeX;
+                var sheight = OsuSizeY;
 
                 if (swidth * 3 > sheight * 4)
                     swidth = sheight * 4 / 3;
@@ -203,8 +197,8 @@ namespace ReplayReader
 
                 XMultiplier = swidth / 640f;
                 YMultiplier = sheight / 480f;
-                XOffset = (int) (_osuSizeX - 512 * XMultiplier) / 2;
-                YOffset = (int) (_osuSizeY - 384 * YMultiplier) / 2;
+                XOffset = (int) (OsuSizeX - 512 * XMultiplier) / 2;
+                YOffset = (int) (OsuSizeY - 384 * YMultiplier) / 2;
             }
             catch
             {
@@ -212,12 +206,12 @@ namespace ReplayReader
             }
         }
 
-        public static bool settingOpen = false;
+        public static bool SettingOpen;
 
-        void newForm()
+        static void NewForm()
         {
-            var Form2 = new EditorSettings();
-            Form2.ShowDialog();
+            var form2 = new EditorSettings();
+            form2.ShowDialog();
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -241,21 +235,20 @@ namespace ReplayReader
                     LTitle.ForeColor = Color.Red;
                     if (BotFunction.GetAsyncKeyState(Keys.LControlKey) == 0 || BotFunction.GetAsyncKeyState(Keys.O) == 0)
                         return;
-                    var fpath = Environment.CurrentDirectory + "\\Data\\Settings.cfg";
                     //open new form
-                    if (!settingOpen)
+                    if (!SettingOpen)
                     {
-                        var thread = new Thread(newForm);
+                        var thread = new Thread(NewForm);
                         thread.Start();
-                        settingOpen = true;
-                        while (settingOpen)
+                        SettingOpen = true;
+                        while (SettingOpen)
                         {
                             Thread.Sleep(5);
                         }
                         thread.Abort();
                     }
                     var cfg = new Config();
-                    cfg.readeFile();
+                    cfg.ReadeFile();
                     Text = cfg.NewTitle;
                 }
             }

@@ -8,36 +8,46 @@ namespace ReplayReader
     public class Config
     {
         public string NewTitle = "";
-        string path = Environment.CurrentDirectory + "\\Data\\Settings.cfg";
-        public void CreateFile(string title, string left, string right, string mouse, string inversion)
+        readonly string _path = Environment.CurrentDirectory + "\\Data\\Settings.cfg";
+        public void CreateFile(string title, string left, string right, string mouse, string inversion, int sizeX, int sizeY)
         {
-            var dataPath = path.Substring(0, path.IndexOf("\\Settings", StringComparison.Ordinal));
+            var dataPath = _path.Substring(0, _path.IndexOf("\\Settings", StringComparison.Ordinal));
             if (!Directory.Exists(dataPath))
                 Directory.CreateDirectory(dataPath);
 
-            using (var fs = File.Create(path))
+            using (var fs = File.Create(_path))
             {
-                var line1 =
+                var parametr1 =
                     new UTF8Encoding(true).GetBytes("*" + title + "*" + " ");
-                var line2 =
+                var parametr2 =
                     new UTF8Encoding(true).GetBytes("*" + left + "*" + " ");
-                var line3 =
+                var parametr3 =
                     new UTF8Encoding(true).GetBytes("*" + right + "*" + " ");
-                var line4 =
+                var parametr4 =
                     new UTF8Encoding(true).GetBytes("*" + mouse + "*" + " ");
-                var line5 =
+                var parametr5 =
                     new UTF8Encoding(true).GetBytes("*" + inversion + "*" + " ");
-                fs.Write(line1, 0, line1.Length);
-                fs.Write(line2, 0, line2.Length);
-                fs.Write(line3, 0, line3.Length);
-                fs.Write(line4, 0, line4.Length);
-                fs.Write(line5, 0, line5.Length);
+                var parametr6 =
+                    new UTF8Encoding(true).GetBytes("*" + sizeX + "*" + " ");
+                var parametr7 =
+                    new UTF8Encoding(true).GetBytes("*" + sizeY + "*" + " ");
+                fs.Write(parametr1, 0, parametr1.Length);
+                fs.Write(parametr2, 0, parametr2.Length);
+                fs.Write(parametr3, 0, parametr3.Length);
+                fs.Write(parametr4, 0, parametr4.Length);
+                fs.Write(parametr5, 0, parametr5.Length);
+                fs.Write(parametr6, 0, parametr6.Length);
+                fs.Write(parametr7, 0, parametr7.Length);
             }
         }
 
-        public void readeFile()
+        public void ReadeFile()
         {
-            var lines = File.ReadAllLines(path);
+            if (!File.Exists(_path))
+            {
+                CreateFile("Osu!ReplayBot", "z", "x", "0", "0", 800, 600);
+            }
+            var lines = File.ReadAllLines(_path);
             NewTitle = lines[0].Split('*')[1];
             BotFunction.OsuLeftKey = lines[0].Split('*')[3].ToLower();
             BotFunction.OsuRightKey = lines[0].Split('*')[5].ToLower();
@@ -45,6 +55,8 @@ namespace ReplayReader
             BotFunction.OsuRight = CharToVirtualKeyCode(BotFunction.OsuRightKey);
             BotFunction.UseMouse = lines[0].Split('*')[7] == "1";
             BotFunction.Inversion = lines[0].Split('*')[9] == "1";
+            Menu.OsuSizeX = int.Parse(lines[0].Split('*')[11]);
+            Menu.OsuSizeY = int.Parse(lines[0].Split('*')[13]);
         }
 
         private static VirtualKeyCode CharToVirtualKeyCode(string key)
