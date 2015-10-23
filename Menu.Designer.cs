@@ -97,7 +97,7 @@ namespace ReplayReader
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 24;
-            this.label1.Text = "v0.079";
+            this.label1.Text = "v0.083";
             // 
             // linkToVk
             // 

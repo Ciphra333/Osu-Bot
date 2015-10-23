@@ -155,8 +155,8 @@ namespace ReplayReader
                         startTime = startTime + 10;
                         var smoothFrame = new ReplayFrame
                         {
-                            X = startX - 1.0f + (float)_random.NextDouble(), // For cursor
-                            Y = startY - 1.0f + (float)_random.NextDouble(), // vibrate
+                            X = startX,
+                            Y = startY,
                             Time = startTime,
                             Keys = startBtn
                         };
