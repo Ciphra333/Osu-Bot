@@ -22,6 +22,8 @@ namespace ReplayReader
         private static readonly InputSimulator Input = new InputSimulator();
         private static GameModes _mode;
 
+        private static Random _random;
+
         private static readonly float AbsX = 65535.0f / SystemInformation.PrimaryMonitorSize.Width;
         private static readonly float AbsY = 65535.0f / SystemInformation.PrimaryMonitorSize.Height;
 
@@ -153,8 +155,8 @@ namespace ReplayReader
                         startTime = startTime + 10;
                         var smoothFrame = new ReplayFrame
                         {
-                            X = startX,
-                            Y = startY,
+                            X = startX - 1.0f + (float)_random.NextDouble(), // For cursor
+                            Y = startY - 1.0f + (float)_random.NextDouble(), // vibrate
                             Time = startTime,
                             Keys = startBtn
                         };
